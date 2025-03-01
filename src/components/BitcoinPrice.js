@@ -6,38 +6,42 @@ export default function BitcoinPrice() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // WebSocket으로 가격 데이터 가져오기
     const socket = new WebSocket("wss://api.upbit.com/websocket/v1");
 
     socket.onopen = () => {
-      socket.send(
-        JSON.stringify([
-          { ticket: "test" },
-          { type: "ticker", codes: ["KRW-BTC"] },
-        ])
-      );
+      console.log("WebSocket Connected");
+
+      const payload = JSON.stringify([
+        { ticket: `btc-price-${Date.now()}` },
+        { type: "ticker", codes: ["KRW-BTC"] },
+      ]);
+
+      const blob = new Blob([payload], { type: "application/json" });
+      socket.send(blob);
     };
 
     socket.onmessage = async (event) => {
       const reader = new FileReader();
       reader.onload = () => {
-        const data = JSON.parse(reader.result);
-        setPrice(data.trade_price);
+        try {
+          const data = JSON.parse(reader.result);
+          console.log("WebSocket Data Received:", data);
+          setPrice(data.trade_price);
+        } catch (err) {
+          console.error("WebSocket Data Parsing Error:", err);
+          setError("WebSocket Parsing Error");
+        }
       };
       reader.readAsText(event.data);
     };
 
-    socket.onerror = (err) => {
-      setError("WebSocket Error: " + err.message);
-    };
-
     return () => {
+      console.log("Closing WebSocket");
       socket.close();
     };
   }, []);
 
   useEffect(() => {
-    // 1초마다 현재 시간 업데이트
     const interval = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
@@ -47,13 +51,13 @@ export default function BitcoinPrice() {
 
   return (
     <div className="p-4 text-center">
-      <h1 className="text-2xl font-bold">Bitcoin Price (KRW)</h1>
+      <h1 className="text-2xl font-bold">BTC Price (KRW)</h1>
       {error ? (
-        <p className="text-red-500">Error: {error}</p>
+        <p className="text-red-500">{error}</p>
       ) : price ? (
         <div>
           <p className="text-xl mt-2">₩{price.toLocaleString()}</p>
-          <p className="text-sm text-gray-500">Current Time: {currentTime}</p>
+          <p className="text-sm text-gray-500">Time: {currentTime}</p>
         </div>
       ) : (
         <p>Loading...</p>
