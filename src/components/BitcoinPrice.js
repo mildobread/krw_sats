@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function BitcoinPrice() {
   const [price, setPrice] = useState(null);
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [date, setDate] = useState(new Date().toLocaleString());
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function BitcoinPrice() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString());
+      setDate(new Date().toLocaleString());
     }, 1000);
 
     return () => clearInterval(interval);
@@ -56,8 +56,8 @@ export default function BitcoinPrice() {
         <p className="text-red-500">{error}</p>
       ) : price ? (
         <div>
-          <p className="text-xl mt-2">₩{price.toLocaleString()}</p>
-          <p className="text-sm text-gray-500">Time: {currentTime}</p>
+          <h1 className="text-xl mt-2">Upbit BTC: ₩{price.toLocaleString()}</h1>
+          <p className="text-sm text-gray-500">{date}</p>
         </div>
       ) : (
         <p>Loading...</p>
