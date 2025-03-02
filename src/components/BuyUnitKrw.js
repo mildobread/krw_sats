@@ -39,7 +39,10 @@ export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAm
           </tr>
         </tbody>
       </table>
-      <p>구매 시 받게 될 비트코인: <b>{satAmount}</b> sats</p>
+      <p>
+        <div>구매 시 받게 될 비트코인</div>
+        <div><b>{satAmount}</b> sats</div>
+      </p>
     </div>
   );
 }

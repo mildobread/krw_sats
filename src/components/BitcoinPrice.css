@@ -19,6 +19,10 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+p {
+  margin: 7px;
+}
+
 .title {
   text-align: center;
   border-bottom: 2px solid #ddd;
