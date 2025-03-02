@@ -54,8 +54,8 @@ export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdt
       };
 
       socket.onclose = () => {
-        console.warn("WebSocket Disconnected. Reconnecting in 3 seconds...");
-        reconnectTimeout = setTimeout(connectWebSocket, 3000);
+        console.warn("WebSocket Disconnected. Reconnecting in 1 seconds...");
+        reconnectTimeout = setTimeout(connectWebSocket, 1000);
       };
     };
 
