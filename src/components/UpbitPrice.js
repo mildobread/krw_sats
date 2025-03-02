@@ -1,11 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-export default function UpbitPrice() {
-  const [krwBtcPrice, setKrwBtcPrice] = useState(null);
-  const [usdtBtcPrice, setUsdtBtcPrice] = useState(null);
-  const [krwUsdtPrice, setKrwUsdtPrice] = useState(null);
-  const [error, setError] = useState(null);
-
+export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdtPrice, setError }) {
   useEffect(() => {
     const socket = new WebSocket("wss://api.upbit.com/websocket/v1");
 
@@ -29,8 +24,7 @@ export default function UpbitPrice() {
             setKrwBtcPrice(data.trade_price);
           } else if (data.code === "USDT-BTC") {
             setUsdtBtcPrice(data.trade_price);
-          }
-          else if (data.code === "KRW-USDT") {
+          } else if (data.code === "KRW-USDT") {
             setKrwUsdtPrice(data.trade_price);
           }
         } catch (err) {
@@ -43,34 +37,5 @@ export default function UpbitPrice() {
     return () => socket.close();
   }, []);
 
-  return (
-    <div>
-      <div>
-        <span>BTC/KRW: </span>
-        {error ? (
-          <span>{error}</span>
-        ) : (
-          <span>₩{krwBtcPrice?.toLocaleString()}</span>
-        )}
-      </div>
-
-      <div>
-        <span>BTC/USDT: </span>
-        {error ? (
-          <span>{error}</span>
-        ) : (
-          <span>${usdtBtcPrice?.toLocaleString()}</span>
-        )}
-      </div>
-
-      <div>
-        <span>KRW/USDT: </span>
-        {error ? (
-          <span>{error}</span>
-        ) : (
-          <span>₩{krwUsdtPrice?.toLocaleString()}</span>
-        )}
-      </div>
-    </div>
-  );
+  return null; // UI 없이 데이터만 전달
 }

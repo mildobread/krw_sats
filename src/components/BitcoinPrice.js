@@ -1,12 +1,72 @@
+import { useState, useEffect } from "react";
 import UpbitPrice from "./UpbitPrice";
 import ExchangeRate from "./ExchangeRate";
+import "./BitcoinPrice.css";
 
 export default function BitcoinPrice() {
+  const [exchangeRate, setExchangeRate] = useState(null);
+  const [btcUsdtPrice, setBtcUsdtPrice] = useState(null);
+  const [krwUsdtPrice, setKrwUsdtPrice] = useState(null);
+  const [btcKrwPrice, setBtcKrwPrice] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await fetch("https://api.manana.kr/exchange/rate/KRW/USD.json");
+        const data = await response.json();
+        setExchangeRate(data[0].rate);
+      } catch (err) {
+        setError("Exchange Rate Fetch Error");
+      }
+    };
+
+    fetchExchangeRate();
+    const interval = setInterval(fetchExchangeRate, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const kimchiPremium = btcKrwPrice && btcUsdtPrice && exchangeRate
+    ? ((btcKrwPrice / (btcUsdtPrice * exchangeRate) - 1) * 100).toFixed(2)
+    : null;
+
   return (
-    <div>
-      <h1>BTC Price</h1>
-      <UpbitPrice/>
-      <ExchangeRate/>
+    <div className="container">
+      <h1 className="title">BTC Price</h1>
+      <UpbitPrice 
+        setKrwBtcPrice={setBtcKrwPrice} 
+        setUsdtBtcPrice={setBtcUsdtPrice} 
+        setKrwUsdtPrice={setKrwUsdtPrice} 
+        setError={setError} 
+      />
+      
+      <table className="price-table">
+        <tbody>
+          <tr>
+            <td>BTC/KRW</td>
+            <td>₩{btcKrwPrice?.toLocaleString()}</td>
+          </tr>
+          <tr>
+            <td>BTC/USDT</td>
+            <td>${btcUsdtPrice?.toLocaleString()}</td>
+          </tr>
+          <tr>
+            <td>KRW/USDT</td>
+            <td>₩{krwUsdtPrice?.toLocaleString()}</td>
+          </tr>
+          <tr>
+            <td className="bold">환율</td>
+            <td><ExchangeRate exchangeRate={exchangeRate} error={error} /></td>
+          </tr>
+          <tr>
+            <td className="bold">김프</td>
+            <td className={`bold ${kimchiPremium > 0 ? "red" : "blue"}`}>
+              {kimchiPremium ? `${kimchiPremium}%` : "데이터 없음"}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>dddd</p>
     </div>
   );
 }
