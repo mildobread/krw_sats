@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 
 export default function UpbitPrice() {
-  const [krwPrice, setKrwPrice] = useState(null);
-  const [usdtPrice, setUsdtPrice] = useState(null);
+  const [krwBtcPrice, setKrwBtcPrice] = useState(null);
+  const [usdtBtcPrice, setUsdtBtcPrice] = useState(null);
+  const [krwUsdtPrice, setKrwUsdtPrice] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -12,7 +13,7 @@ export default function UpbitPrice() {
       console.log("Upbit WebSocket Connected");
       const payload = JSON.stringify([
         { ticket: `btc-price-${Date.now()}` },
-        { type: "ticker", codes: ["KRW-BTC", "USDT-BTC"] }, // ✅ USDT-BTC 추가
+        { type: "ticker", codes: ["KRW-BTC", "USDT-BTC", "KRW-USDT"] },
       ]);
       socket.send(new Blob([payload], { type: "application/json" }));
     };
@@ -25,9 +26,12 @@ export default function UpbitPrice() {
           console.log("Received Data:", data);
 
           if (data.code === "KRW-BTC") {
-            setKrwPrice(data.trade_price);
+            setKrwBtcPrice(data.trade_price);
           } else if (data.code === "USDT-BTC") {
-            setUsdtPrice(data.trade_price);
+            setUsdtBtcPrice(data.trade_price);
+          }
+          else if (data.code === "KRW-USDT") {
+            setKrwUsdtPrice(data.trade_price);
           }
         } catch (err) {
           setError("Upbit WebSocket Error");
@@ -42,20 +46,29 @@ export default function UpbitPrice() {
   return (
     <div>
       <div>
-        <span className="text-xl font-bold">BTC/KRW: </span>
+        <span>BTC/KRW: </span>
         {error ? (
-          <span className="text-red-500">{error}</span>
+          <span>{error}</span>
         ) : (
-          <span>₩{krwPrice?.toLocaleString()}</span>
+          <span>₩{krwBtcPrice?.toLocaleString()}</span>
         )}
       </div>
 
       <div>
-        <span className="text-xl font-bold">BTC/USDT: </span>
+        <span>BTC/USDT: </span>
         {error ? (
-          <span className="text-red-500">{error}</span>
+          <span>{error}</span>
         ) : (
-          <span>${usdtPrice?.toLocaleString()}</span>
+          <span>${usdtBtcPrice?.toLocaleString()}</span>
+        )}
+      </div>
+
+      <div>
+        <span>KRW/USDT: </span>
+        {error ? (
+          <span>{error}</span>
+        ) : (
+          <span>₩{krwUsdtPrice?.toLocaleString()}</span>
         )}
       </div>
     </div>
