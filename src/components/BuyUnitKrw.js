@@ -6,7 +6,7 @@ export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAm
 
   return (
     <div className="small-container">
-      <h2 className="title">KRW(원) 금액만큼 구매</h2>
+      <h3 className="title">KRW(원) 금액만큼 구매</h3>
       <table className="price-table">
         <tbody>
           <tr>

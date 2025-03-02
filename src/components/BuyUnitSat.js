@@ -6,7 +6,7 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
 
   return (
     <div className="small-container">
-      <h2 className="title">BTC(사토시) 수량만큼 구매</h2>
+      <h3 className="title">BTC(사토시) 수량만큼 구매</h3>
       <table className="price-table">
         <tbody>
           <tr>

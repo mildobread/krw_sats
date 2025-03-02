@@ -12,8 +12,11 @@
   pointer-events: none;
 }
 
-h2.title {
+h3.title {
+  margin-top: 15px;
   margin-bottom: 0;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
