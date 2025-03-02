@@ -5,7 +5,7 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
     : Number((btcKrwPrice * satAmount / 100000000).toFixed(0)).toLocaleString()
 
   return (
-    <div className="container">
+    <div className="small-container">
       <h2 className="title">BTC(사토시) 수량만큼 구매</h2>
       <table className="price-table">
         <tbody>

@@ -5,7 +5,7 @@ export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAm
     : Number((krwAmount * 100000000 / btcKrwPrice).toFixed(0)).toLocaleString()
 
   return (
-    <div className="container">
+    <div className="small-container">
       <h2 className="title">KRW(원) 금액만큼 구매</h2>
       <table className="price-table">
         <tbody>
