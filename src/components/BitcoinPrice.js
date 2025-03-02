@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import UpbitPrice from "./UpbitPrice";
 import ExchangeRate from "./ExchangeRate";
 import "./BitcoinPrice.css";
+import BuyUnitKrw from "./BuyUnitKrw";
+import BuyUnitSat from "./BuyUnitSat";
 
 export default function BitcoinPrice() {
   const [exchangeRate, setExchangeRate] = useState(null);
@@ -9,6 +11,9 @@ export default function BitcoinPrice() {
   const [krwUsdtPrice, setKrwUsdtPrice] = useState(null);
   const [btcKrwPrice, setBtcKrwPrice] = useState(null);
   const [error, setError] = useState(null);
+  const [krwAmount, setKrwAmount] = useState(100000); // 원화 입력값
+  const [satAmount, setSatAmount] = useState(100000);
+  const [p2pPremium, setP2pPremium] = useState(0); // P2P 프리미엄 입력값 (기본값: 0%)
 
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -39,7 +44,7 @@ export default function BitcoinPrice() {
         setKrwUsdtPrice={setKrwUsdtPrice} 
         setError={setError} 
       />
-      
+
       <table className="price-table">
         <tbody>
           <tr>
@@ -66,7 +71,22 @@ export default function BitcoinPrice() {
           </tr>
         </tbody>
       </table>
-      <p>dddd</p>
+
+      <BuyUnitKrw
+        btcKrwPrice={btcKrwPrice}
+        krwAmount={krwAmount}
+        p2pPremium={p2pPremium}
+        setKrwAmount={setKrwAmount}
+        setP2pPremium={setP2pPremium}
+      />
+
+      <BuyUnitSat
+        btcKrwPrice={btcKrwPrice}
+        satAmount={satAmount}
+        p2pPremium={p2pPremium}
+        setSatAmount={setSatAmount}
+        setP2pPremium={setP2pPremium}
+      />
     </div>
   );
 }
