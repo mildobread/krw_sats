@@ -1,18 +1,21 @@
 .container {
-  width: 440px;
-  margin: 20px auto;
-  padding: 20px;
+  width: 100%;
+  max-width: 440px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .small-container {
   width: 80%;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 10px auto;
+  padding-left: 20px;
+  padding-right: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -28,13 +31,13 @@ input {
 }
 
 .price-table {
-  width: 100%;
+  width: 90%;
+  margin: auto;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
 .price-table td {
-  padding: 5px;
+  padding: 4px;
   border-bottom: 1px solid #ddd;
 }
 

@@ -12,8 +12,8 @@ export default function CurrentTime() {
   }, []);
 
   return (
-    <h2 className="time">
+    <div>
       {currentTime.toLocaleDateString()} {currentTime.toLocaleTimeString()}
-    </h2>
+    </div>
   );
 }

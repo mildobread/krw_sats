@@ -38,10 +38,7 @@ export default function BitcoinPrice() {
 
   return (
     <div className="container">
-      <div className="title">
-        <h1 className>BTC Price</h1>
-        <CurrentTime/>
-      </div>
+      <h2 className="title"><CurrentTime/></h2>
 
       <UpbitPrice 
         setKrwBtcPrice={setBtcKrwPrice} 
