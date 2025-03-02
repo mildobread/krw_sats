@@ -1,3 +1,4 @@
+import './App.css';
 import BitcoinPrice from "./components/BitcoinPrice";
 
 function App() {
