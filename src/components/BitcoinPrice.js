@@ -28,7 +28,7 @@ export default function BitcoinPrice() {
     };
 
     fetchExchangeRate();
-    const interval = setInterval(fetchExchangeRate, 10000);
+    const interval = setInterval(fetchExchangeRate, 1000);
     return () => clearInterval(interval);
   }, []);
 
