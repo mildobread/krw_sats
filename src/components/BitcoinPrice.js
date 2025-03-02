@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import UpbitPrice from "./UpbitPrice";
 import ExchangeRate from "./ExchangeRate";
-import "./BitcoinPrice.css";
 import BuyUnitKrw from "./BuyUnitKrw";
 import BuyUnitSat from "./BuyUnitSat";
+import CurrentTime from "./CurrentTime"
+import "./BitcoinPrice.css";
 
 export default function BitcoinPrice() {
   const [exchangeRate, setExchangeRate] = useState(null);
@@ -37,7 +38,11 @@ export default function BitcoinPrice() {
 
   return (
     <div className="container">
-      <h1 className="title">BTC Price</h1>
+      <div className="title">
+        <h1 className>BTC Price</h1>
+        <CurrentTime/>
+      </div>
+
       <UpbitPrice 
         setKrwBtcPrice={setBtcKrwPrice} 
         setUsdtBtcPrice={setBtcUsdtPrice} 

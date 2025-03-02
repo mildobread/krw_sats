@@ -39,7 +39,7 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
           </tr>
         </tbody>
       </table>
-      <p>입금해야 할 금액(KRW): ₩{krwAmount}</p>
+      <p>입금해야 할 금액(KRW): ₩<b>{krwAmount}</b></p>
     </div>
   );
 }
