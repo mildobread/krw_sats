@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdtPrice, setError }) {
+export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdtPrice }) {
+  const [error, setError] = useState(null);
   const socketRef = useRef(null);
 
   useEffect(() => {
