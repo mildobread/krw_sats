@@ -1,5 +1,6 @@
 import { useState } from "react";
 import UpbitPrice from "./UpbitPrice";
+import BinancePrice from "./BinancePrice";
 import BuyUnitKrw from "./BuyUnitKrw";
 import BuyUnitSat from "./BuyUnitSat";
 import CurrentTime from "./CurrentTime"
@@ -7,9 +8,9 @@ import InfoTable from "./InfoTable";
 import "./BitcoinPrice.css";
 
 export default function BitcoinPrice() {
+  const [btcKrwPrice, setBtcKrwPrice] = useState(null);
   const [btcUsdtPrice, setBtcUsdtPrice] = useState(null);
   const [krwUsdtPrice, setKrwUsdtPrice] = useState(null);
-  const [btcKrwPrice, setBtcKrwPrice] = useState(null);
   const [krwAmount, setKrwAmount] = useState(0);
   const [satAmount, setSatAmount] = useState(0);
   const [p2pPremium, setP2pPremium] = useState(0);
@@ -20,8 +21,11 @@ export default function BitcoinPrice() {
 
       <UpbitPrice 
         setKrwBtcPrice={setBtcKrwPrice} 
-        setUsdtBtcPrice={setBtcUsdtPrice} 
         setKrwUsdtPrice={setKrwUsdtPrice} 
+      />
+
+      <BinancePrice 
+        setBtcUsdtPrice={setBtcUsdtPrice} 
       />
 
       <InfoTable

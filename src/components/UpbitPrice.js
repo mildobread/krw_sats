@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdtPrice }) {
+export default function UpbitPrice({ setKrwBtcPrice, setKrwUsdtPrice }) {
   const [error, setError] = useState(null);
   const socketRef = useRef(null);
 
@@ -20,7 +20,7 @@ export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdt
         setError(null);
         const payload = JSON.stringify([
           { ticket: `btc-price-${Date.now()}` },
-          { type: "ticker", codes: ["KRW-BTC", "USDT-BTC", "KRW-USDT"] },
+          { type: "ticker", codes: ["KRW-BTC", "KRW-USDT"] },
         ]);
         socket.send(new Blob([payload], { type: "application/json" }));
       };
@@ -34,8 +34,6 @@ export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdt
 
             if (data.code === "KRW-BTC") {
               setKrwBtcPrice(data.trade_price);
-            } else if (data.code === "USDT-BTC") {
-              setUsdtBtcPrice(data.trade_price);
             } else if (data.code === "KRW-USDT") {
               setKrwUsdtPrice(data.trade_price);
             }
