@@ -34,14 +34,13 @@ export default function BuyUnitKrw({ btcKrwPrice, krwAmount, p2pPremium, setKrwA
             <td>
               <div className="input-section">
                 <label>
-                  <input
+                  <input className="input_box"
                     type="text"
                     inputMode="numeric"
                     value={krwAmount}
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    style={{ textAlign: "right" }}
                   />
                 </label>
               </div>

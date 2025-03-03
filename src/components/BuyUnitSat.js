@@ -34,14 +34,13 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
             <td>
             <div className="input-section">
               <label>
-                <input
+                <input className="input_box"
                   type="text"
                   inputMode="numeric"
                   value={satAmount}
                   onChange={handleChange}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
-                  style={{ textAlign: "right" }}
                 />
               </label>
             </div>

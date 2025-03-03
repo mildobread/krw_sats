@@ -20,14 +20,13 @@ export default function P2pPremiumInput({ p2pPremium, setP2pPremium }) {
   return (
     <div className="input-section">
       <label>
-        <input
+        <input className="input_box"
           type="text"
           inputMode="decimal"
           value={p2pPremium}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          style={{ textAlign: "right" }}
         />
       </label>
     </div>
