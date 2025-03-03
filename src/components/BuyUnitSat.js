@@ -1,8 +1,20 @@
 export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAmount, setP2pPremium}) {
+  const satAmountNumber = Number(String(satAmount).replace(/,/g, ""));
 
   const krwAmount = p2pPremium
-    ? Number((btcKrwPrice * (1 + 0.01 * p2pPremium) * satAmount / 100000000).toFixed(0)).toLocaleString()
-    : Number((btcKrwPrice * satAmount / 100000000).toFixed(0)).toLocaleString()
+    ? Number((btcKrwPrice * (1 + 0.01 * p2pPremium) * satAmountNumber / 100000000).toFixed(0)).toLocaleString()
+    : Number((btcKrwPrice * satAmountNumber / 100000000).toFixed(0)).toLocaleString()
+
+  const handleChange = (e) => {
+    let rawValue = e.target.value.replace(/\D/g, "");
+
+    if (rawValue !== "") {
+      const formattedValue = Number(rawValue).toLocaleString("en-US");
+      setSatAmount(formattedValue);
+    } else {
+      setSatAmount("");
+    }
+  };
 
   return (
     <div className="small-container">
@@ -15,9 +27,11 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
             <div className="input-section">
               <label>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                   value={satAmount}
-                  onChange={(e) => setSatAmount(e.target.value)}
+                  onChange={handleChange}
+                  style={{ textAlign: "right" }}
                 />
               </label>
             </div>
@@ -29,9 +43,11 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
             <div className="input-section">
               <label>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                   value={p2pPremium}
                   onChange={(e) => setP2pPremium(e.target.value)}
+                  style={{ textAlign: "right" }}
                 />
               </label>
             </div>

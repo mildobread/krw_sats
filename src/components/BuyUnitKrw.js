@@ -1,8 +1,20 @@
 export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAmount, setP2pPremium}) {
+  const krwAmountNumber = Number(String(krwAmount).replace(/,/g, ""));
 
   const satAmount = p2pPremium
-    ? Number((krwAmount * 100000000 / btcKrwPrice * (1 - 0.01 * p2pPremium)).toFixed(0)).toLocaleString()
-    : Number((krwAmount * 100000000 / btcKrwPrice).toFixed(0)).toLocaleString()
+    ? Number((krwAmountNumber * 100000000 / btcKrwPrice * (1 - 0.01 * p2pPremium)).toFixed(0)).toLocaleString()
+    : Number((krwAmountNumber * 100000000 / btcKrwPrice).toFixed(0)).toLocaleString()
+
+  const handleChange = (e) => {
+    let rawValue = e.target.value.replace(/\D/g, "");
+
+    if (rawValue !== "") {
+      const formattedValue = Number(rawValue).toLocaleString("en-US");
+      setKrwAmount(formattedValue);
+    } else {
+      setKrwAmount("");
+    }
+  };
 
   return (
     <div className="small-container">
@@ -15,9 +27,11 @@ export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAm
             <div className="input-section">
               <label>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                   value={krwAmount}
-                  onChange={(e) => setKrwAmount(e.target.value)}
+                  onChange={handleChange}
+                  style={{ textAlign: "right" }}
                 />
               </label>
             </div>
@@ -29,9 +43,11 @@ export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAm
             <div className="input-section">
               <label>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                   value={p2pPremium}
                   onChange={(e) => setP2pPremium(e.target.value)}
+                  style={{ textAlign: "right" }}
                 />
               </label>
             </div>
