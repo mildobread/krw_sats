@@ -12,7 +12,7 @@ export default function BitcoinPrice() {
   const [btcKrwPrice, setBtcKrwPrice] = useState(null);
   const [krwAmount, setKrwAmount] = useState(0);
   const [satAmount, setSatAmount] = useState(0);
-  const [p2pPremium, setP2pPremium] = useState(0); // P2P 프리미엄 입력값 (기본값: 0%)
+  const [p2pPremium, setP2pPremium] = useState(0);
 
   return (
     <div className="container">

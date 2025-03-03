@@ -14,13 +14,13 @@ export default function BuyUnitKrw({ btcKrwPrice, krwAmount, p2pPremium, setKrwA
 
   const handleFocus = () => {
     if (Number(String(krwAmount).replace(/,/g, "")) === 0) {
-      setKrwAmount(""); // 클릭 시 기본값이 0이면 지우기
+      setKrwAmount("");
     }
   };
 
   const handleBlur = () => {
     if (krwAmount === "") {
-      setKrwAmount("0"); // 입력 후 비어 있으면 다시 0으로 설정
+      setKrwAmount("0");
     }
   };
 

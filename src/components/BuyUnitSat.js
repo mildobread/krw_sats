@@ -14,13 +14,13 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
 
   const handleFocus = () => {
     if (Number(String(krwAmount).replace(/,/g, "")) === 0) {
-      setSatAmount(""); // 클릭 시 기본값이 0이면 지우기
+      setSatAmount("");
     }
   };
 
   const handleBlur = () => {
     if (krwAmount === "") {
-      setSatAmount("0"); // 입력 후 비어 있으면 다시 0으로 설정
+      setSatAmount("0");
     }
   };
 

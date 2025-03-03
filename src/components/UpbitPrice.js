@@ -42,7 +42,7 @@ export default function UpbitPrice({ setKrwBtcPrice, setUsdtBtcPrice, setKrwUsdt
           } catch (err) {
             setError("Upbit WebSocket Error");
             console.error("WebSocket JSON Parse Error:", err);
-            socket.close(); // 오류 발생 시 웹소켓 종료
+            socket.close();
           }
         };
         reader.readAsText(event.data);
