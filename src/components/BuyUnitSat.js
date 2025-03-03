@@ -1,3 +1,5 @@
+import P2pPremiumInput from "./P2pPremiumInput";
+
 export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAmount, setP2pPremium}) {
   const satAmountNumber = Number(String(satAmount).replace(/,/g, ""));
 
@@ -6,13 +8,19 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
     : Number((btcKrwPrice * satAmountNumber / 100000000).toFixed(0)).toLocaleString()
 
   const handleChange = (e) => {
-    let rawValue = e.target.value.replace(/\D/g, "");
+    let rawValue = e.target.value.replace(/\D/g, ""); // 숫자만 남김
+    setSatAmount(rawValue !== "" ? Number(rawValue).toLocaleString("en-US") : "");
+  };
 
-    if (rawValue !== "") {
-      const formattedValue = Number(rawValue).toLocaleString("en-US");
-      setSatAmount(formattedValue);
-    } else {
-      setSatAmount("");
+  const handleFocus = () => {
+    if (Number(String(krwAmount).replace(/,/g, "")) === 0) {
+      setSatAmount(""); // 클릭 시 기본값이 0이면 지우기
+    }
+  };
+
+  const handleBlur = () => {
+    if (krwAmount === "") {
+      setSatAmount("0"); // 입력 후 비어 있으면 다시 0으로 설정
     }
   };
 
@@ -31,6 +39,8 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
                   inputMode="numeric"
                   value={satAmount}
                   onChange={handleChange}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
                   style={{ textAlign: "right" }}
                 />
               </label>
@@ -40,17 +50,10 @@ export default function BuyUnitSat({btcKrwPrice, satAmount, p2pPremium, setSatAm
           <tr>
             <td className="bold">P(%)</td>
             <td>
-            <div className="input-section">
-              <label>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={p2pPremium}
-                  onChange={(e) => setP2pPremium(e.target.value)}
-                  style={{ textAlign: "right" }}
-                />
-              </label>
-            </div>
+              <P2pPremiumInput
+                p2pPremium={p2pPremium}
+                setP2pPremium={setP2pPremium}
+              />
             </td>
           </tr>
         </tbody>

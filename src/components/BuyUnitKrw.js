@@ -1,18 +1,26 @@
-export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAmount, setP2pPremium}) {
-  const krwAmountNumber = Number(String(krwAmount).replace(/,/g, ""));
+import P2pPremiumInput from "./P2pPremiumInput";
+
+export default function BuyUnitKrw({ btcKrwPrice, krwAmount, p2pPremium, setKrwAmount, setP2pPremium }) {
+  const krwAmountNumber = Number(String(krwAmount).replace(/,/g, "")); // 쉼표 제거 후 숫자로 변환
 
   const satAmount = p2pPremium
     ? Number((krwAmountNumber * 100000000 / btcKrwPrice * (1 - 0.01 * p2pPremium)).toFixed(0)).toLocaleString()
-    : Number((krwAmountNumber * 100000000 / btcKrwPrice).toFixed(0)).toLocaleString()
+    : Number((krwAmountNumber * 100000000 / btcKrwPrice).toFixed(0)).toLocaleString();
 
   const handleChange = (e) => {
-    let rawValue = e.target.value.replace(/\D/g, "");
+    let rawValue = e.target.value.replace(/\D/g, ""); // 숫자만 남김
+    setKrwAmount(rawValue !== "" ? Number(rawValue).toLocaleString("en-US") : "");
+  };
 
-    if (rawValue !== "") {
-      const formattedValue = Number(rawValue).toLocaleString("en-US");
-      setKrwAmount(formattedValue);
-    } else {
-      setKrwAmount("");
+  const handleFocus = () => {
+    if (Number(String(krwAmount).replace(/,/g, "")) === 0) {
+      setKrwAmount(""); // 클릭 시 기본값이 0이면 지우기
+    }
+  };
+
+  const handleBlur = () => {
+    if (krwAmount === "") {
+      setKrwAmount("0"); // 입력 후 비어 있으면 다시 0으로 설정
     }
   };
 
@@ -24,33 +32,28 @@ export default function BuyUnitKrw({btcKrwPrice, krwAmount, p2pPremium, setKrwAm
           <tr>
             <td className="bold">KRW(₩)</td>
             <td>
-            <div className="input-section">
-              <label>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={krwAmount}
-                  onChange={handleChange}
-                  style={{ textAlign: "right" }}
-                />
-              </label>
-            </div>
+              <div className="input-section">
+                <label>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={krwAmount}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    style={{ textAlign: "right" }}
+                  />
+                </label>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="bold">P(%)</td>
             <td>
-            <div className="input-section">
-              <label>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={p2pPremium}
-                  onChange={(e) => setP2pPremium(e.target.value)}
-                  style={{ textAlign: "right" }}
-                />
-              </label>
-            </div>
+              <P2pPremiumInput
+                p2pPremium={p2pPremium}
+                setP2pPremium={setP2pPremium}
+              />
             </td>
           </tr>
         </tbody>
