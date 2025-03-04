@@ -42,12 +42,12 @@ export default function InfoTable({ btcKrwPrice, btcUsdtPrice, krwUsdtPrice }) {
         </tr>
         <tr>
           <td className="bold">환율</td>
-          <td><ExchangeRate exchangeRate={exchangeRate} error={error} /></td>
+          <td><ExchangeRate exchangeRate={exchangeRate} error={error}/></td>
         </tr>
         <tr>
           <td className="bold">김프</td>
-          <td className={`bold ${kimchiPremium > 0 ? "red" : "blue"}`}>
-            {kimchiPremium ? `${kimchiPremium}%` : "데이터 없음"}
+          <td className={`${kimchiPremium > 0 ? "bold red" : "black"}`}>
+            {kimchiPremium ? `${kimchiPremium}%` : "Loading..."}
           </td>
         </tr>
       </tbody>

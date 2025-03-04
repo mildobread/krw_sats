@@ -3,7 +3,7 @@ import UpbitPrice from "./UpbitPrice";
 import BinancePrice from "./BinancePrice";
 import BuyUnitKrw from "./BuyUnitKrw";
 import BuyUnitSat from "./BuyUnitSat";
-import CurrentTime from "./CurrentTime"
+import CurrentTime from "./CurrentTime";
 import InfoTable from "./InfoTable";
 import "./BitcoinPrice.css";
 
@@ -17,38 +17,44 @@ export default function BitcoinPrice() {
 
   return (
     <div className="container">
-      <h3 className="title"><CurrentTime/></h3>
-
       <UpbitPrice 
         setKrwBtcPrice={setBtcKrwPrice} 
         setKrwUsdtPrice={setKrwUsdtPrice} 
       />
 
-      <BinancePrice 
-        setBtcUsdtPrice={setBtcUsdtPrice} 
-      />
+      {btcKrwPrice === null ? (
+        <div className="loading-container">
+          <img src="https://img.mk.co.kr/mkde/ic_loading_img.gif" alt="Loading..." className="loading-gif" />
+        </div>
+      ) : (
+        <>
+          <h3 className="title"><CurrentTime /></h3>
 
-      <InfoTable
-        btcKrwPrice={btcKrwPrice}
-        btcUsdtPrice={btcUsdtPrice}
-        krwUsdtPrice={krwUsdtPrice}
-      />
+          <BinancePrice setBtcUsdtPrice={setBtcUsdtPrice} />
 
-      <BuyUnitKrw
-        btcKrwPrice={btcKrwPrice}
-        krwAmount={krwAmount}
-        p2pPremium={p2pPremium}
-        setKrwAmount={setKrwAmount}
-        setP2pPremium={setP2pPremium}
-      />
+          <InfoTable
+            btcKrwPrice={btcKrwPrice}
+            btcUsdtPrice={btcUsdtPrice}
+            krwUsdtPrice={krwUsdtPrice}
+          />
 
-      <BuyUnitSat
-        btcKrwPrice={btcKrwPrice}
-        satAmount={satAmount}
-        p2pPremium={p2pPremium}
-        setSatAmount={setSatAmount}
-        setP2pPremium={setP2pPremium}
-      />
+          <BuyUnitKrw
+            btcKrwPrice={btcKrwPrice}
+            krwAmount={krwAmount}
+            p2pPremium={p2pPremium}
+            setKrwAmount={setKrwAmount}
+            setP2pPremium={setP2pPremium}
+          />
+
+          <BuyUnitSat
+            btcKrwPrice={btcKrwPrice}
+            satAmount={satAmount}
+            p2pPremium={p2pPremium}
+            setSatAmount={setSatAmount}
+            setP2pPremium={setP2pPremium}
+          />
+        </>
+      )}
     </div>
   );
 }
