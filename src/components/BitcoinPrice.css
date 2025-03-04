@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   max-width: 350px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   padding-left: 2px;
   padding-right: 2px;
   border: 1px solid #ddd;
@@ -17,6 +17,11 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.loading-container {
+  padding-top: 45px;
+  padding-bottom: 40px;
 }
 
 .input_box {

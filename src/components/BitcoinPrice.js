@@ -5,6 +5,7 @@ import BuyUnitKrw from "./BuyUnitKrw";
 import BuyUnitSat from "./BuyUnitSat";
 import CurrentTime from "./CurrentTime";
 import InfoTable from "./InfoTable";
+import LoadingPage from "./LoadingPage";
 import "./BitcoinPrice.css";
 
 export default function BitcoinPrice() {
@@ -23,9 +24,7 @@ export default function BitcoinPrice() {
       />
 
       {btcKrwPrice === null ? (
-        <div className="loading-container">
-          <img src="https://img.mk.co.kr/mkde/ic_loading_img.gif" alt="Loading..." className="loading-gif" />
-        </div>
+        <LoadingPage/>
       ) : (
         <>
           <h3 className="title"><CurrentTime /></h3>
